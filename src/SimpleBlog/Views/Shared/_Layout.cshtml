@@ -20,7 +20,7 @@
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid main-container" style="height: 100%">
         <div class="row">
             <div class="col-sm-3 col-lg-2 col-sm-push-9 col-lg-push-10">
                 <div class="navbar navbar-default navbar-fixed-side">
@@ -46,18 +46,21 @@
                 </div>
 
             </div>
+            <div class="col-sm-9 col-lg-10 col-sm-pull-3 col-lg-pull-2">
+                <div class="container body-content">
+                    @RenderBody()
+                    <hr />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <footer>
+                    <p>&copy; 2016 - SimpleBlog</p>
+                </footer>
+            </div>
         </div>
     </div>
-    <div class="col-sm-9 col-lg-10 col-sm-pull-3 col-lg-pull-2">
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; 2016 - SimpleBlog</p>
-            </footer>
-        </div>
-    </div>
-
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
