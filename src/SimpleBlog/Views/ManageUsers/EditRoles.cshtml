@@ -1,0 +1,117 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model SimpleBlog.Models.ManageUsersViewModels.EditRolesViewModel
+
+@{
+    ViewData["Title"] = "Edit Roles";
+}
+
+<h2>Edit Roles</h2>
+
+<div class="container-fluid">
+    @if (ViewBag.IdentityErrors != null)
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach (var error in ViewBag.IdentityErrors)
+                        {
+                            <li>
+                                <strong>@error.Code</strong>
+                                @error.Description
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+    @if (ViewBag.UserMessage != null)
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert ViewBag.UserMessage.CssClassName">
+                    <strong>ViewBag.UserMessage.Title</strong> ViewBag.UserMessage.Message
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>Available Roles</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AvailableRoles)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var roleName in Model.AvailableRoles)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => roleName)
+                            </td>
+                            <td>
+                                <form asp-action="EditRoles">
+                                    <input name="userId" type="hidden" value="@Model.User.Id">
+                                    <input name="roleName" type="hidden" value="@roleName">
+                                    <input name="addOrRemove" type="hidden" value="add">
+                                    <input type="submit" value="Assign" class="btn btn-default">
+                                </form>
+                                <a asp-action="AssignRole"
+                                   asp-route-roleName="@roleName"
+                                   asp-route-userId="@Model.User.UserName">Assign</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
+            <h3>Assigned Roles</h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AssignedRoles)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var roleName in Model.AssignedRoles)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => roleName)
+                            </td>
+                            <td>
+                                <form asp-action="EditRoles">
+                                    <input name="userId" type="hidden" value="@Model.User.Id">
+                                    <input name="roleName" type="hidden" value="@roleName">
+                                    <input name="addOrRemove" type="hidden" value="remove">
+                                    <input type="submit" value="Remove" class="btn btn-default">
+                                </form>
+                                <a asp-action="RemoveRole" asp-route-roleName="@roleName" asp-route-userName="@Model.User.Id">Remove</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <a asp-action="Edit" asp-route-id="@Model.User.Id">Back to Edit View</a> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>

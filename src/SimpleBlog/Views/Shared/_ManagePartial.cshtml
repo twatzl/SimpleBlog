@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SimpleBlog.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a asp-controller="ManageUsers" asp-action="Index" title="Manage">Manage Users</a>
+        </li>
+    </ul>
+}
